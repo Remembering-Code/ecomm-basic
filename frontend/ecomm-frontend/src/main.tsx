@@ -1,7 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
 import './index.css'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
+import App from './App.tsx'
+import Content from "./views/Content.jsx"
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />
+  },
+  {
+    path: "/content",
+    element: <Content />,
+  },
+
+]);
 
 import App from './App.tsx'
 import Login from './components/auth/Login'
