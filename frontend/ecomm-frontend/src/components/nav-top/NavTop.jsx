@@ -34,14 +34,14 @@ const TopNav = ({ onSearch }) => {
     };
 
     // Toggle dropdown menu for Departments (under search bar component)
-    const [isOpen2, setIsOpen2] = useState(false);
+    const [isOpenSubNav, setIsOpenSubNav] = useState(false);
 
     const toggleDropdown2 = () => {
-        setIsOpen2(!isOpen2);
+        setIsOpenSubNav(!isOpenSubNav);
     };
 
     const closeDropdown2 = () => {
-        setIsOpen2(false);
+        setIsOpenSubNav(false);
     };
 
     // Handling the dropdown menu to close when clicked off of it 
@@ -55,7 +55,7 @@ const TopNav = ({ onSearch }) => {
                 setIsOpen(false); // Close the first dropdown menu if clicked outside
             }
             if (dropdownRef2.current && !dropdownRef2.current.contains(event.target)) {
-                setIsOpen2(false); // Close the second dropdown menu if clicked outside
+                setIsOpenSubNav(false); // Close the second dropdown menu if clicked outside
             }
         };
 
@@ -71,7 +71,7 @@ const TopNav = ({ onSearch }) => {
 
     return (
         <>
-            <div className='bg-gray-700 p-4 flex justify-between '>
+            <div className='bg-gray-700 p-4 flex justify-between'>
 
                 <div className='nav-right flex items-center gap-2 text-white'>
                     <img src={reactImg} alt="logo" className='' />
@@ -130,7 +130,7 @@ const TopNav = ({ onSearch }) => {
                     All
                 </button>
 
-                {isOpen2 && (
+                {isOpenSubNav && (
                     <div ref={dropdownRef2} className="absolute top-full left-0 w-44 max-h-80 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 overflow-auto" >
                         <ul role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                             <li><Link to={""} onClick={closeDropdown2} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"> Link </Link></li>
@@ -148,16 +148,16 @@ const TopNav = ({ onSearch }) => {
                         </ul>
                     </div>
                 )}
-                <Link to={""}> category 1</Link>
-                <Link to={""}> category 2</Link>
-                <Link to={""}> category 3</Link>
-                <Link to={""}> category 4</Link>
-                <Link to={""}> category 5</Link>
-                <Link to={""}> category 6</Link>
-                <Link to={""}> category 7</Link>
-                <Link to={""}> category 8</Link>
-                <Link to={""}> category 9</Link>
-                <Link to={""}> category 10</Link>
+                <Link to={""}> Department 1</Link>
+                <Link to={""}> Department 2</Link>
+                <Link to={""}> Department 3</Link>
+                <Link to={""}> Department 4</Link>
+                <Link to={""}> Department 5</Link>
+                <Link to={""}> Department 6</Link>
+                <Link to={""}> Department 7</Link>
+                <Link to={""}> Department 8</Link>
+                <Link to={""}> Department 9</Link>
+                <Link to={""}> Department 10</Link>
             </div>
         </>
     )
