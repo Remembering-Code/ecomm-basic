@@ -1,28 +1,30 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link } from "react-router-dom"
-import TopNav from '../components/nav-top/TopNav'
+import NavTop from '../components/nav-top/NavTop'
+import NavBottom from '../components/NavBottom'
+import NavSide from '../components/NavSide'
 
 
 const Content = () => {
 
     // create a for loop to populate an array, in order to map content to be able to see the stuff; DUMMY DATA
     const dummyData = [
-        { name: "Rubber Ducky", price: 661, ratings: [3, 5, 2] },
-        { name: "Angel Rubber Ducky", price: 662, ratings: [4, 1, 3] },
-        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1] },
-        { name: "Cowboy Rubber Ducky", price: 663, ratings: [2, 4, 5, 3] },
-        { name: "Nerd Rubber Ducky", price: 664, ratings: [1, 5, 4] },
-        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1] },
-        { name: "Evil Rubber Ducky", price: 666, ratings: [2, 4] },
-        { name: "Rubber Ducky", price: 667, ratings: [5, 2] },
-        { name: "Angel Rubber Ducky", price: 668, ratings: [1, 3] },
-        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1] },
-        { name: "Cowboy Rubber Ducky", price: 669, ratings: [4, 2] },
-        { name: "Nerd Rubber Ducky", price: 670, ratings: [3, 5] },
-        { name: "Matt's Rubber Ducky", price: 671, ratings: [1, 4] },
-        { name: "Evil Rubber Ducky", price: 672, ratings: [5, 3] },
-        { name: "Rubber Ducky", price: 673, ratings: [2, 1] },
-        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1] },
+        { name: "Rubber Ducky", price: 661, ratings: [3, 5, 2], department: "Department 1" },
+        { name: "Angel Rubber Ducky", price: 662, ratings: [4, 1, 3], department: "Department 2" },
+        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1], department: "Department 3" },
+        { name: "Cowboy Rubber Ducky", price: 663, ratings: [2, 4, 5, 3], department: "Department 4" },
+        { name: "Nerd Rubber Ducky", price: 664, ratings: [1, 5, 4], department: "Department 5" },
+        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1], department: "Department 1" },
+        { name: "Evil Rubber Ducky", price: 666, ratings: [2, 4], department: "Department 2" },
+        { name: "Rubber Ducky", price: 667, ratings: [5, 2], department: "Department 4" },
+        { name: "Angel Rubber Ducky", price: 668, ratings: [1, 3], department: "Department 3" },
+        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1], department: "Department 1" },
+        { name: "Cowboy Rubber Ducky", price: 669, ratings: [4, 2], department: "Department 5" },
+        { name: "Nerd Rubber Ducky", price: 670, ratings: [3, 5], department: "Department 3" },
+        { name: "Matt's Rubber Ducky", price: 671, ratings: [1, 4], department: "Department 2" },
+        { name: "Evil Rubber Ducky", price: 672, ratings: [5, 3], department: "Department 1" },
+        { name: "Rubber Ducky", price: 673, ratings: [2, 1], department: "Department 1" },
+        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1], department: "Department 4" },
     ];
 
     // Search bar item filter
@@ -32,6 +34,12 @@ const Content = () => {
         const filtered = dummyData.filter(item =>
             item.name.toLowerCase().includes(searchInput.toLowerCase()));
         setFilteredData(filtered);
+    };
+
+    // Filtering by Department
+    const handleDeptFilter = (activeDept) => {
+        const filteredProducts = activeDept ? dummyData.filter(product => product.department === activeDept) : dummyData;
+        setFilteredData(filteredProducts);
     };
 
     ////// PAGINATION //////
@@ -121,15 +129,10 @@ const Content = () => {
 
     return (
         <>
+            <NavTop onSearch={handleSearch} />
 
-            {/* <div className='bg-[#dc3545] p-5 text-center text-xl'>
-                <h1> Nav placeholder </h1>
-            </div> */}
-
-            <TopNav onSearch={handleSearch} />
-
-            <div className='p-2 bg-blue-800 flex justify-between items-center'>
-                <h1 className='text-white'>{filteredData.length} Search results</h1>
+            <div className='p-2 bg-slate-200 flex justify-between items-center shadow-md mb-1'>
+                <h1 className=''>{filteredData.length} Search results</h1>
                 <div className="relative">
                     <button className="bg-gray-200 p-2 mr-8 hover:bg-blue-400 font-medium inline-flex items-center" onClick={toggleDropdown}>
                         Sort by
@@ -152,20 +155,13 @@ const Content = () => {
             </div >
 
             <div className='flex '>
-                <div className='bg-red-800 w-64 text-center'>
-                    <h1> Side bar placeholder</h1>
-                    {/* {dummyData.filter((data, index) => index < 10).map((data, index) =>
-                        <div className="p-2">
-                            <p key={index}>• {data.name}</p>
-                        </div>
-                    )} */}
-                </div>
+                <NavSide activeDept={handleDeptFilter} />
 
                 <div className='flex-auto'>
                     <div className='px-5'>
-                        <p>Results</p>
+                        <h1 className='text-xl'>Results</h1>
+                        <p className='text-sm'>Here they are.</p>
                     </div>
-
 
                     <div className='grid grid-cols-4 gap-4 container mx-auto p-4'>
 
@@ -178,8 +174,16 @@ const Content = () => {
                                 <Link className="hover:text-blue-600 hover:underline" to={`/item/${index}`}> {item.name}</Link>
                                 <p> AvgRating: {avgRating(item.ratings)} </p>
                                 <p> ${item.price} </p>
+                                <p> {item.department}</p>
                             </div>
                         ))}
+                        {/* 
+                        {currentItems.map((product, index) => (
+                            <div key={index} className="product-item">
+                                <h3>{product.name}</h3>
+                                <p>Price: ${product.price}</p>
+                            </div>
+                        ))} */}
 
                     </div>
                     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 ">
@@ -223,10 +227,9 @@ const Content = () => {
                         </div>
                     </div>
                 </div>
-            </div >
-            <div className='bg-green-500 h-24 text-center p-10'>
-                <h1> Footer Placeholder</h1>
             </div>
+
+            <NavBottom />
         </>
     )
 }
