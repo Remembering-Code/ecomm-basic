@@ -107,7 +107,7 @@ const TopNav = ({ onSearch }) => {
                         </div>
                     )}
                     <input
-                        className='p-2 w-96	'
+                        className='p-2 w-16	lg:w-40 xl:w-96'
                         type="search"
                         placeholder="Search..."
                         value={searchInput}

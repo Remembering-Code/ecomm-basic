@@ -18,11 +18,6 @@ const NavBottom = (props) => {
                     <Link to={"#"}><p>link2</p></Link>
                     <Link to={"#"}><p>link3</p></Link>
                     <Link to={"#"}><p>link4</p></Link>
-                    <Link to={"#"}><p>link5</p></Link>
-                    <Link to={"#"}><p>link6</p></Link>
-                    <Link to={"#"}><p>link7</p></Link>
-                    <Link to={"#"}><p>link8</p></Link>
-                    <Link to={"#"}><p>link9</p></Link>
                 </div>
 
                 <div className="footer-links-col-2 flex flex-col">
@@ -31,11 +26,6 @@ const NavBottom = (props) => {
                     <Link to={"#"}><p>link2</p></Link>
                     <Link to={"#"}><p>link3</p></Link>
                     <Link to={"#"}><p>link4</p></Link>
-                    <Link to={"#"}><p>link5</p></Link>
-                    <Link to={"#"}><p>link6</p></Link>
-                    <Link to={"#"}><p>link7</p></Link>
-                    <Link to={"#"}><p>link8</p></Link>
-                    <Link to={"#"}><p>link9</p></Link>
                 </div>
 
                 <div className="footer-links-col-3 flex flex-col">
@@ -44,11 +34,6 @@ const NavBottom = (props) => {
                     <Link to={"#"}><p>link2</p></Link>
                     <Link to={"#"}><p>link3</p></Link>
                     <Link to={"#"}><p>link4</p></Link>
-                    <Link to={"#"}><p>link5</p></Link>
-                    <Link to={"#"}><p>link6</p></Link>
-                    <Link to={"#"}><p>link7</p></Link>
-                    <Link to={"#"}><p>link8</p></Link>
-                    <Link to={"#"}><p>link9</p></Link>
                 </div>
 
                 <div className="footer-links-col-4 flex flex-col">
@@ -57,11 +42,6 @@ const NavBottom = (props) => {
                     <Link to={"#"}><p>link2</p></Link>
                     <Link to={"#"}><p>link3</p></Link>
                     <Link to={"#"}><p>link4</p></Link>
-                    <Link to={"#"}><p>link5</p></Link>
-                    <Link to={"#"}><p>link6</p></Link>
-                    <Link to={"#"}><p>link7</p></Link>
-                    <Link to={"#"}><p>link8</p></Link>
-                    <Link to={"#"}><p>link9</p></Link>
                 </div>
             </div>
 
