@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Content from '../views/Content';
-
 
 const NavSide = ({ activeDept }) => {
 
@@ -18,10 +16,10 @@ const NavSide = ({ activeDept }) => {
     // render department links
     const renderDepartmentLinks = () => {
         const departments = [
-            { name: 'Department 1', links: ['Link A', 'Link B', 'Link C'] },
-            { name: 'Department 2', links: ['Link X', 'Link Y', 'Link Z'] },
-            { name: 'Department 3', links: ['Link C', 'Link A', 'Link T'] },
-            { name: 'Department 4', links: ['Link D', 'Link O', 'Link G'] },
+            { name: 'Shoes', links: ['Link A', 'Link B', 'Link C'] },
+            { name: 'Books', links: ['Link X', 'Link Y', 'Link Z'] },
+            { name: 'Movies', links: ['Link C', 'Link A', 'Link T'] },
+            { name: 'Computers', links: ['Link D', 'Link O', 'Link G'] },
         ];
 
         return departments.map((department, index) => (
@@ -39,7 +37,7 @@ const NavSide = ({ activeDept }) => {
                 {activeDepartment === department.name && (
                     <div className="links-container flex flex-col">
                         {department.links.map((link, index) => (
-                            <Link key={index} to="#">{link} </Link>
+                            <Link key={index} to="#" className='border'>{link} </Link>
                         ))}
                     </div>
                 )}
@@ -50,6 +48,7 @@ const NavSide = ({ activeDept }) => {
     return (
         <div>
             <div className="bg-slate-100 w-56 h-full text-center">
+                <p className='font-bold text-blue-700 mb-2'> All Departments </p>
                 {renderDepartmentLinks()}
             </div>
         </div>

@@ -5,27 +5,7 @@ import NavBottom from '../components/NavBottom'
 import NavSide from '../components/NavSide'
 
 
-const Content = () => {
-
-    // create a for loop to populate an array, in order to map content to be able to see the stuff; DUMMY DATA
-    const dummyData = [
-        { name: "Rubber Ducky", price: 661, ratings: [3, 5, 2], department: "Department 1" },
-        { name: "Angel Rubber Ducky", price: 662, ratings: [4, 1, 3], department: "Department 2" },
-        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1], department: "Department 3" },
-        { name: "Cowboy Rubber Ducky", price: 663, ratings: [2, 4, 5, 3], department: "Department 4" },
-        { name: "Nerd Rubber Ducky", price: 664, ratings: [1, 5, 4], department: "Department 5" },
-        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1], department: "Department 1" },
-        { name: "Evil Rubber Ducky", price: 666, ratings: [2, 4], department: "Department 2" },
-        { name: "Rubber Ducky", price: 667, ratings: [5, 2], department: "Department 4" },
-        { name: "Angel Rubber Ducky", price: 668, ratings: [1, 3], department: "Department 3" },
-        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1], department: "Department 1" },
-        { name: "Cowboy Rubber Ducky", price: 669, ratings: [4, 2], department: "Department 5" },
-        { name: "Nerd Rubber Ducky", price: 670, ratings: [3, 5], department: "Department 3" },
-        { name: "Matt's Rubber Ducky", price: 671, ratings: [1, 4], department: "Department 2" },
-        { name: "Evil Rubber Ducky", price: 672, ratings: [5, 3], department: "Department 1" },
-        { name: "Rubber Ducky", price: 673, ratings: [2, 1], department: "Department 1" },
-        { name: "Matt's Rubber Ducky", price: 665, ratings: [3, 1], department: "Department 4" },
-    ];
+const Content = ({dummyData}) => {
 
     // Search bar item filter
     const [filteredData, setFilteredData] = useState(dummyData);
@@ -38,7 +18,7 @@ const Content = () => {
 
     // Filtering by Department
     const handleDeptFilter = (activeDept) => {
-        const filteredProducts = activeDept ? dummyData.filter(product => product.department === activeDept) : dummyData;
+        const filteredProducts = activeDept ? dummyData.filter(product => product.PRD_CATEGORY === activeDept) : dummyData;
         setFilteredData(filteredProducts);
     };
 
@@ -105,13 +85,13 @@ const Content = () => {
 
     // calculating price low to high
     const priceLowtoHigh = () => {
-        const sortedData = [...filteredData].sort((a, b) => a.price - b.price);
+        const sortedData = [...filteredData].sort((a, b) => a.PRD_PRICE - b.PRD_PRICE);
         setFilteredData(sortedData);
     };
 
     // calculating price low to high
     const priceHightoLow = () => {
-        const sortedData = [...filteredData].sort((a, b) => b.price - a.price);
+        const sortedData = [...filteredData].sort((a, b) => b.PRD_PRICE - a.PRD_PRICE);
         setFilteredData(sortedData);
     };
 
@@ -127,14 +107,22 @@ const Content = () => {
         setFilteredData(sortedData);
     };
 
+    // const truncateText = (text, maxLength = 50) => {
+    //     if (text.length <= maxLength) {
+    //         return text
+    //     }
+    //     const truncatedText = text.substr(0, text.lastIndexOf(' ', maxLength))
+    //     return truncatedText + "..."
+    // }
+
     return (
         <>
             <NavTop onSearch={handleSearch} />
 
-            <div className='p-2 bg-slate-200 flex justify-between items-center shadow-md mb-1'>
+            <div className='p-2 bg-slate-200 flex justify-between items-center shadow-md mb-1 text-sm'>
                 <h1 className=''>{filteredData.length} Search results</h1>
                 <div className="relative">
-                    <button className="bg-gray-200 p-2 mr-8 hover:bg-blue-400 font-medium inline-flex items-center" onClick={toggleDropdown}>
+                    <button className="bg-gray-200 p-2 mr-8 hover:bg-blue-400 inline-flex items-center" onClick={toggleDropdown}>
                         Sort by
                         <svg className="w-2.5 h-2.5 ml-2.5" aria-hidden="true" viewBox="0 0 10 6">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
@@ -143,11 +131,11 @@ const Content = () => {
                     {isOpen && (
                         <div ref={dropdownRef} className="absolute -left-10 shadow-lg bg-white ring-1 ring-black ring-opacity-5 overflow-auto">
                             <ul role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                <li><Link to={""} onClick={() => { closeDropdown(); priceLowtoHigh() }} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Price: Low to High</Link></li>
-                                <li><Link to={""} onClick={() => { closeDropdown(); priceHightoLow() }} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Price: High to Low</Link></li>
-                                <li><Link to={""} onClick={() => { closeDropdown(); avgRatingFilter() }} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Avg. Customer Rating</Link></li>
-                                <li><Link to={""} onClick={closeDropdown} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Newst Arrival</Link></li>
-                                <li><Link to={""} onClick={closeDropdown} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Best Sellers</Link></li>
+                                <li><Link to={""} onClick={() => { closeDropdown(); priceLowtoHigh() }} className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100">Price: Low to High</Link></li>
+                                <li><Link to={""} onClick={() => { closeDropdown(); priceHightoLow() }} className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100">Price: High to Low</Link></li>
+                                <li><Link to={""} onClick={() => { closeDropdown(); avgRatingFilter() }} className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100">Avg. Customer Rating</Link></li>
+                                <li><Link to={""} onClick={closeDropdown} className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100">Newst Arrival</Link></li>
+                                <li><Link to={""} onClick={closeDropdown} className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100">Best Sellers</Link></li>
                             </ul>
                         </div>
                     )}
@@ -166,26 +154,25 @@ const Content = () => {
                     <div className='grid grid-cols-4 gap-4 container mx-auto p-4'>
 
                         {currentItems.map((item, index) => (index < 8 &&
-                            <div key={index} className="border-2 place-content-center text-center mx-auto max-w-48 max-h-80">
+                            <div key={index} className="p-2 border-2 place-content-center text-center mx-auto max-w-56 max-h-96">
                                 <img
                                     src="https://media.istockphoto.com/id/1146670231/vector/rubber-duck-vector-illustration.jpg?s=612x612&w=0&k=20&c=75fuQJhx-j5Q9O1ndmeunLPBKbrQxsTcZ1I6DYbVsnY="
-                                    alt="ducky" className=' p-2 object-center' />
+                                    alt="ducky" className='object-center' />
 
-                                <Link className="hover:text-blue-600 hover:underline" to={`/item/${index}`}> {item.name}</Link>
-                                <p> AvgRating: {avgRating(item.ratings)} </p>
-                                <p> ${item.price} </p>
-                                <p> {item.department}</p>
+                                <Link className=" font-bold hover:text-blue-600 hover:underline" to={`/item/${index}`}> {item.PRD_NAME}</Link>
+                                {/* <p> AvgRating: {avgRating(item.ratings)} </p> */}
+                                <p className='text-green-500'> ${item.PRD_PRICE} </p>
+                                {/* <p className='' title={item.PRD_DESCRIPTION}> {truncateText(item.PRD_DESCRIPTION)} </p> */}
+                                <p className='line-clamp-2' title={item.PRD_DESCRIPTION}> {item.PRD_DESCRIPTION} </p>
+                                <div className="hidden bg-white border border-gray-300 shadow-lg">
+                                    {item.PRD_DESCRIPTION}
+                                </div>
+                                <p className='text-purple-500'> {item.PRD_CATEGORY}</p>
                             </div>
                         ))}
-                        {/* 
-                        {currentItems.map((product, index) => (
-                            <div key={index} className="product-item">
-                                <h3>{product.name}</h3>
-                                <p>Price: ${product.price}</p>
-                            </div>
-                        ))} */}
-
                     </div>
+
+                    {/****************** PAGINATION ******************/}
                     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 ">
                         <div className="flex flex-1 justify-between sm:hidden">
                             <button onClick={prevPage} className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" disabled={currentPage === 1}>
