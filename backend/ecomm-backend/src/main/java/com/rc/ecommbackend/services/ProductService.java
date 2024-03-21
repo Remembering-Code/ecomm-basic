@@ -1,5 +1,13 @@
 package com.rc.ecommbackend.services;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.rc.ecommbackend.models.Product;
+import com.rc.ecommbackend.repositories.ProductRepo;
+
 @Service
 public class ProductService {
 	
