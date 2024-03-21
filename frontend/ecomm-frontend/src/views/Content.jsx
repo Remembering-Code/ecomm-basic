@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link } from "react-router-dom"
+import axios from 'axios';
+
 import NavTop from '../components/nav-top/NavTop'
 import NavBottom from '../components/NavBottom'
 import NavSide from '../components/NavSide'
 
 
-const Content = ({dummyData}) => {
+const Content = ({ dummyData }) => {
 
     // Search bar item filter
     const [filteredData, setFilteredData] = useState(dummyData);
@@ -68,18 +70,36 @@ const Content = ({dummyData}) => {
     // Handling the dropdown menu to close when clicked off of it 
     const dropdownRef = useRef(null);
 
+    const [products, setProducts] = useState([]);
+    
+    // Making a call to the backend to fetch all products using axios
+    const fetchProducts = () => {
+        axios.get('/products')
+            .then(response => {
+                setProducts(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
+            });
+    };
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsOpen(false);
             }
-        };
+        }
+
+        fetchProducts();
 
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
+
     }, []);
+
+    console.log('Products', products);
 
     ///////////////////////// FILTER BY /////////////////////////
 
