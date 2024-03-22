@@ -11,6 +11,7 @@ import ViewOne from "./views/ViewOne.jsx"
 import Login from './components/auth/Login'
 import Registration from './components/auth/Registration'
 
+import Test from "./views/Test.jsx"
 
 // create a for loop to populate an array, in order to map content to be able to see the stuff; DUMMY DATA
 const dummyData = [
@@ -144,6 +145,8 @@ const router = createBrowserRouter([
 
   { path: "/login", element: <Login /> },
   { path: "/registration", element: <Registration /> },
+
+  { path: "/test/:id", element: <Test /> },
 
 ]);
 

@@ -59,6 +59,7 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.1.0.Final</version>
 		</dependency>
+	
 		
 		<!--Dependency needed for CrudRepository to work ? idk-->
 		<dependency>
