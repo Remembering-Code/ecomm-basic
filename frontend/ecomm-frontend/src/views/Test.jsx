@@ -1,13 +1,11 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
 const Test = () => {
-    const [dataResponse, setDataResponse] = useState(null);
-    const { id } = useParams();
+    const [dataResponse, setDataResponse] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/products/${id}`)
+        axios.get('http://localhost:8080/products')
             .then(response => {
                 setDataResponse(response.data);
             })
@@ -18,7 +16,14 @@ const Test = () => {
 
     return (
         <div>
-            <p>{dataResponse}</p>
+            <h2>Data Response</h2>
+            <ul>
+                {dataResponse.map(data => (
+                    <li key={data.prd_ID}>
+                        {data.prd_NAME} - ${data.prd_PRICE}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 };

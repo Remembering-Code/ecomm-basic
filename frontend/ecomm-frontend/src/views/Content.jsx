@@ -9,19 +9,45 @@ import NavSide from '../components/NavSide'
 
 const Content = ({ dummyData }) => {
 
-    // Search bar item filter
-    const [filteredData, setFilteredData] = useState(dummyData);
+    const [products, setProducts] = useState([]);
+    // const [filteredData, setfilteredData] = useState([]);
 
+    useEffect(() => {
+        // Making a call to the backend to fetch all products using axios
+        axios.get('http://localhost:8080/products')
+            .then(response => {
+                setProducts(response.data);
+                // setProducts(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
+            });
+
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+
+    }, []);
+
+    console.log('Products', products);
+
+    // Search bar item filter
     const handleSearch = (searchInput) => {
-        const filtered = dummyData.filter(item =>
+        const filtered = products.filter(item =>
             item.name.toLowerCase().includes(searchInput.toLowerCase()));
-        setFilteredData(filtered);
+        setProducts(filtered);
     };
 
     // Filtering by Department
     const handleDeptFilter = (activeDept) => {
-        const filteredProducts = activeDept ? dummyData.filter(product => product.PRD_CATEGORY === activeDept) : dummyData;
-        setFilteredData(filteredProducts);
+        const filteredProducts = activeDept ? products.filter(product => product.prd_CATEGORY === activeDept) : products;
+        setProducts(filteredProducts);
     };
 
     ////// PAGINATION //////
@@ -30,11 +56,11 @@ const Content = ({ dummyData }) => {
     const itemsPerPage = 8;
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
 
     // Handle page change
     const nextPage = () => {
-        if (indexOfLastItem < filteredData.length) {
+        if (indexOfLastItem < products.length) {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -70,61 +96,29 @@ const Content = ({ dummyData }) => {
     // Handling the dropdown menu to close when clicked off of it 
     const dropdownRef = useRef(null);
 
-    const [products, setProducts] = useState([]);
-    
-    // Making a call to the backend to fetch all products using axios
-    const fetchProducts = () => {
-        axios.get('/products')
-            .then(response => {
-                setProducts(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching products:', error);
-            });
-    };
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsOpen(false);
-            }
-        }
-
-        fetchProducts();
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-
-    }, []);
-
-    console.log('Products', products);
-
-    ///////////////////////// FILTER BY /////////////////////////
-
+    //////// FILTER BY ////////
     // calculating price low to high
     const priceLowtoHigh = () => {
-        const sortedData = [...filteredData].sort((a, b) => a.PRD_PRICE - b.PRD_PRICE);
-        setFilteredData(sortedData);
+        const sortedData = [...products].sort((a, b) => a.prd_PRICE - b.prd_PRICE);
+        setProducts(sortedData);
     };
 
     // calculating price low to high
     const priceHightoLow = () => {
-        const sortedData = [...filteredData].sort((a, b) => b.PRD_PRICE - a.PRD_PRICE);
-        setFilteredData(sortedData);
+        const sortedData = [...products].sort((a, b) => b.prd_PRICE - a.prd_PRICE);
+        setProducts(sortedData);
     };
 
     // calculating sort by average rating
     const avgRatingFilter = () => {
-        const sortedData = [...filteredData].sort((a, b) => {
+        const sortedData = [...products].sort((a, b) => {
             // calculating average ratings for each item
             const avgRatingA = avgRating(a.ratings);
             const avgRatingB = avgRating(b.ratings);
             // comparing average ratings for sorting
             return avgRatingB - avgRatingA;
         });
-        setFilteredData(sortedData);
+        setProducts(sortedData);
     };
 
     // const truncateText = (text, maxLength = 50) => {
@@ -140,7 +134,7 @@ const Content = ({ dummyData }) => {
             <NavTop onSearch={handleSearch} />
 
             <div className='p-2 bg-slate-200 flex justify-between items-center shadow-md mb-1 text-sm'>
-                <h1 className=''>{filteredData.length} Search results</h1>
+                <h1 className=''>{products.length} Search results</h1>
                 <div className="relative">
                     <button className="bg-gray-200 p-2 mr-8 hover:bg-blue-400 inline-flex items-center" onClick={toggleDropdown}>
                         Sort by
@@ -179,15 +173,15 @@ const Content = ({ dummyData }) => {
                                     src="https://media.istockphoto.com/id/1146670231/vector/rubber-duck-vector-illustration.jpg?s=612x612&w=0&k=20&c=75fuQJhx-j5Q9O1ndmeunLPBKbrQxsTcZ1I6DYbVsnY="
                                     alt="ducky" className='object-center' />
 
-                                <Link className=" font-bold hover:text-blue-600 hover:underline" to={`/item/${index}`}> {item.PRD_NAME}</Link>
+                                <Link className=" font-bold hover:text-blue-600 hover:underline" to={`/item/${item.prd_ID}`}> {item.prd_NAME}</Link>
                                 {/* <p> AvgRating: {avgRating(item.ratings)} </p> */}
-                                <p className='text-green-500'> ${item.PRD_PRICE} </p>
-                                {/* <p className='' title={item.PRD_DESCRIPTION}> {truncateText(item.PRD_DESCRIPTION)} </p> */}
-                                <p className='line-clamp-2' title={item.PRD_DESCRIPTION}> {item.PRD_DESCRIPTION} </p>
+                                <p className='text-green-500'> ${item.prd_PRICE} </p>
+                                {/* <p className='' title={item.prd_DESCRIPTION}> {truncateText(item.prd_DESCRIPTION)} </p> */}
+                                <p className='line-clamp-2' title={item.prd_DESCRIPTION}> {item.prd_DESCRIPTION} </p>
                                 <div className="hidden bg-white border border-gray-300 shadow-lg">
-                                    {item.PRD_DESCRIPTION}
+                                    {item.prd_DESCRIPTION}
                                 </div>
-                                <p className='text-purple-500'> {item.PRD_CATEGORY}</p>
+                                <p className='text-purple-500'> {item.prd_CATEGORY}</p>
                             </div>
                         ))}
                     </div>
@@ -200,9 +194,9 @@ const Content = ({ dummyData }) => {
                                 <p> ⬅️ </p>
                             </button>
                             <p className="relative z-10 inline-flex items-center px-4 py-2 text-sm border">
-                                {currentPage} of {Math.ceil(dummyData.length / itemsPerPage)}
+                                {currentPage} of {Math.ceil(products.length / itemsPerPage)}
                             </p>
-                            <button onClick={nextPage} className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" disabled={indexOfLastItem >= dummyData.length}>
+                            <button onClick={nextPage} className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" disabled={indexOfLastItem >= products.length}>
                                 <span className="sr-only">Next</span>
                                 <p> ➡️ </p>
                             </button>
@@ -211,9 +205,9 @@ const Content = ({ dummyData }) => {
                             <div>
                                 <p className="text-sm text-gray-700">
                                     Showing <span className="font-medium">{indexOfFirstItem + 1}</span> to <span className="font-medium">
-                                        {indexOfLastItem <= filteredData.length ? indexOfLastItem : filteredData.length}
+                                        {indexOfLastItem <= products.length ? indexOfLastItem : products.length}
                                     </span> of
-                                    <span className="font-medium"> {filteredData.length}</span> results
+                                    <span className="font-medium"> {products.length}</span> results
                                 </p>
                             </div>
                             <div>
@@ -223,9 +217,9 @@ const Content = ({ dummyData }) => {
                                         <p> ⬅️ </p>
                                     </button>
                                     <p className="relative z-10 inline-flex items-center px-4 py-2 text-sm border">
-                                        {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
+                                        {currentPage} of {Math.ceil(products.length / itemsPerPage)}
                                     </p>
-                                    <button onClick={nextPage} className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" disabled={indexOfLastItem >= filteredData.length}>
+                                    <button onClick={nextPage} className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" disabled={indexOfLastItem >= products.length}>
                                         <span className="sr-only">Next</span>
                                         <p> ➡️ </p>
                                     </button>
