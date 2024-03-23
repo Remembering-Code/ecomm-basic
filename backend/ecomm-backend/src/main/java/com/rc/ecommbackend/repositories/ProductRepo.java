@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-
 import com.rc.ecommbackend.models.Product;
 
 public interface ProductRepo extends CrudRepository<Product, Long> {

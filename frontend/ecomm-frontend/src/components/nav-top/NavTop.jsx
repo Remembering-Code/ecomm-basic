@@ -81,7 +81,7 @@ const TopNav = ({ onSearch }) => {
                 <div className='search-bar'>
                     <button className="bg-gray-200 p-2 hover:bg-blue-400 font-medium inline-flex items-center" onClick={toggleDropdown}>
                         All <svg className="w-2.5 h-2.5 ml-2.5" aria-hidden="true" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
 
