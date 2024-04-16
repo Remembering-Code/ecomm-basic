@@ -10,6 +10,9 @@ import Content from "./views/Content.jsx"
 import ViewOne from "./views/ViewOne.jsx"
 import Login from './components/auth/Login'
 import Registration from './components/auth/Registration'
+import NewProduct from './components/NewProduct'
+import UpdateProduct from './components/UpdateProduct'
+
 
 import Test from "./views/Test.jsx"
 
@@ -127,20 +130,27 @@ const dummyData = [
   }
 ]
 
-
 const router = createBrowserRouter([
+  // {
+  //   path: "/",
+  //   element: <App />
+  //   // errorElement: <ErrorPage />, // TODO: hey guy, make an error page
+  // },
   {
     path: "/",
-    element: <App />
-    // errorElement: <ErrorPage />, // TODO: hey guy, make an error page
-  },
-  {
-    path: "/content",
     element: <Content dummyData={dummyData} />,
   },
   {
     path: "/item/:id",
     element: <ViewOne dummyData={dummyData} />
+  },
+  {
+    path: "/newProduct",
+    element: <NewProduct />
+  },
+  {
+    path: "/editProduct/:id",
+    element: <UpdateProduct />
   },
 
   { path: "/login", element: <Login /> },

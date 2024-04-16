@@ -17,65 +17,141 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="t_ecom_pro_product")
+@Table(name="t_ecom_pro_products")
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long PRD_ID;
+	private Long prd_id;
 	
 	@NotNull
 	@Size(min=2, max=255, message="Name must be between 2-255 characters.")
-	private String PRD_NAME;
+	private String prd_name;
 	
 	@NotEmpty(message="Please add a Description!")
-	private String PRD_DESCRIPTION;
+	private String prd_description;
 	
 	@NotNull
-	private Float PRD_PRICE;
+	private Float prd_price;
 	
 	@NotNull
-	private Short PRD_INSTOCK_QUANTITY;
+	private Short prd_instock_quantity;
 	
 	@NotNull
-	private String PRD_UPDATED_BY;
+	private String prd_category;
+	
+	@NotNull
+	private String prd_updated_by;
 	
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date CREATED_AT;
+	private Date created_at;	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date UPDATED_AT;
+	private Date updated_at;
 	
 	@PrePersist
 	protected void onCreate() {
-		this.CREATED_AT = new Date();
+		this.created_at = new Date();
 	}
 	
 	@PreUpdate
 	protected void onUpdate() {
-		this.UPDATED_AT = new Date();
+		this.updated_at = new Date();
 	}
 	
 	// Constructors
 	
 	public Product() {}
-	
-	public Product(Long PRD_ID,
-			@NotNull @Size(min=2, max=255, message="Name must be between 2-255 characters.") String PRD_NAME,
-			@NotEmpty(message="Please add a Description!") String PRD_DESCRIPTION,
-			@NotNull Float PRD_PRICE,
-			@NotNull Short PRD_INSTOCK_QUANTITY,
-			@NotNull String PRD_UPDATED_BY,
-			Date CREATED_AT,
-			Date UPDATED_AT) {
-		this.PRD_ID = PRD_ID;
-		this.PRD_NAME = PRD_NAME;
-		this.PRD_DESCRIPTION = PRD_DESCRIPTION;
-		this.PRD_PRICE = PRD_PRICE;
-		this.PRD_INSTOCK_QUANTITY = PRD_INSTOCK_QUANTITY;
-		this.PRD_UPDATED_BY = PRD_UPDATED_BY;
-		this.CREATED_AT = CREATED_AT;
-		this.UPDATED_AT = UPDATED_AT;
+
+	public Product(Long prd_id,
+			@NotNull @Size(min = 2, max = 255, message = "Name must be between 2-255 characters.") String prd_name,
+			@NotEmpty(message = "Please add a Description!") String prd_description, @NotNull Float prd_price,
+			@NotNull Short prd_instock_quantity, @NotNull String prd_category, @NotNull String prd_updated_by,
+			Date created_at, Date updated_at) {
+		super();
+		this.prd_id = prd_id;
+		this.prd_name = prd_name;
+		this.prd_description = prd_description;
+		this.prd_price = prd_price;
+		this.prd_instock_quantity = prd_instock_quantity;
+		this.prd_category = prd_category;
+		this.prd_updated_by = prd_updated_by;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
 	}
+
+	public Long getPrd_id() {
+		return prd_id;
+	}
+
+	public void setPrd_id(Long prd_id) {
+		this.prd_id = prd_id;
+	}
+
+	public String getPrd_name() {
+		return prd_name;
+	}
+
+	public void setPrd_name(String prd_name) {
+		this.prd_name = prd_name;
+	}
+
+	public String getPrd_description() {
+		return prd_description;
+	}
+
+	public void setPrd_description(String prd_description) {
+		this.prd_description = prd_description;
+	}
+
+	public Float getPrd_price() {
+		return prd_price;
+	}
+
+	public void setPrd_price(Float prd_price) {
+		this.prd_price = prd_price;
+	}
+
+	public Short getPrd_instock_quantity() {
+		return prd_instock_quantity;
+	}
+
+	public void setPrd_instock_quantity(Short prd_instock_quantity) {
+		this.prd_instock_quantity = prd_instock_quantity;
+	}
+
+	public String getPrd_updated_by() {
+		return prd_updated_by;
+	}
+
+	public void setPrd_updated_by(String prd_updated_by) {
+		this.prd_updated_by = prd_updated_by;
+	}
+
+	public Date getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
+	}
+
+	public Date getUpdated_at() {
+		return updated_at;
+	}
+
+	public void setUpdated_at(Date updated_at) {
+		this.updated_at = updated_at;
+	}
+
+	public String getPrd_category() {
+		return prd_category;
+	}
+
+	public void setPrd_category(String prd_category) {
+		this.prd_category = prd_category;
+	}
+	
+	
 	
 	// TODO Generate constructor for validations
 	
@@ -85,67 +161,5 @@ public class Product {
 	
 	
 
-	public Long getPRD_ID() {
-		return PRD_ID;
-	}
 
-	public void setPRD_ID(Long pRD_ID) {
-		PRD_ID = pRD_ID;
-	}
-
-	public String getPRD_NAME() {
-		return PRD_NAME;
-	}
-
-	public void setPRD_NAME(String pRD_NAME) {
-		PRD_NAME = pRD_NAME;
-	}
-
-	public String getPRD_DESCRIPTION() {
-		return PRD_DESCRIPTION;
-	}
-
-	public void setPRD_DESCRIPTION(String pRD_DESCRIPTION) {
-		PRD_DESCRIPTION = pRD_DESCRIPTION;
-	}
-
-	public Float getPRD_PRICE() {
-		return PRD_PRICE;
-	}
-
-	public void setPRD_PRICE(Float pRD_PRICE) {
-		PRD_PRICE = pRD_PRICE;
-	}
-
-	public Short getPRD_INSTOCK_QUANTITY() {
-		return PRD_INSTOCK_QUANTITY;
-	}
-
-	public void setPRD_INSTOCK_QUANTITY(Short pRD_INSTOCK_QUANTITY) {
-		PRD_INSTOCK_QUANTITY = pRD_INSTOCK_QUANTITY;
-	}
-
-	public String getPRD_UPDATED_BY() {
-		return PRD_UPDATED_BY;
-	}
-
-	public void setPRD_UPDATED_BY(String pRD_UPDATED_BY) {
-		PRD_UPDATED_BY = pRD_UPDATED_BY;
-	}
-
-	public Date getCREATED_AT() {
-		return CREATED_AT;
-	}
-
-	public void setCREATED_AT(Date cREATED_AT) {
-		CREATED_AT = cREATED_AT;
-	}
-
-	public Date getUPDATED_AT() {
-		return UPDATED_AT;
-	}
-
-	public void setUPDATED_AT(Date uPDATED_AT) {
-		UPDATED_AT = uPDATED_AT;
-	}
 }

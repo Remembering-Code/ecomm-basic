@@ -2,10 +2,16 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import reactImg from "../../assets/react.svg"
 import menuIcon from "../../assets/menu.png"
+import axios from 'axios'
 
 // add recent searches history to the search bar - need DB
 
 const TopNav = ({ onSearch }) => {
+
+    const [userData, setUserData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
     const [searchInput, setSearchInput] = useState("");
 
     const handleChange = () => {
@@ -50,6 +56,15 @@ const TopNav = ({ onSearch }) => {
     const dropdownRef2 = useRef(null);
 
     useEffect(() => {
+        // TO DO: UNCOMMENT WHEN LOGIN WORKS FOR AUTHORIZATION
+        // axios.get(`http://localhost:8080/user/${userId}`)
+        //     .then(response => {
+        //         setUserData(response.data);
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching user data:', error);
+        //     });
+
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsOpen(false); // Close the first dropdown menu if clicked outside
@@ -67,15 +82,13 @@ const TopNav = ({ onSearch }) => {
         };
     }, []);
 
-
-
     return (
         <>
             <div className='bg-gray-700 p-4 flex justify-between'>
 
                 <div className='nav-right flex items-center gap-2 text-white'>
                     <img src={reactImg} alt="logo" className='' />
-                    <Link to={"/content"} className='w-full'> Store Name </Link>
+                    <Link to={"/"} className='w-full'> Store Name </Link>
                 </div>
 
                 <div className='search-bar'>
@@ -118,7 +131,19 @@ const TopNav = ({ onSearch }) => {
                 </div>
 
                 <div className='nav-left flex gap-3 text-white'>
-                    <button className=' p-2'> 👤Employee Log in </button>
+                    {/* authorization stuff, button only available for employees */}
+                    {/* {user.role === "admin" && ( */}
+                    <Link to={"/newProduct"}><button className='bg-red-600 p-2'> New Product </button></Link>
+                    {/* )} */}
+
+                    {/*Login button only available if nobody is logged in, otherwise Logout Button */}
+                    {/* {user ? (
+                        <button className='p-2' onClick={handleLogout}>👤Logout</button>
+                    ) : ( */}
+                    <Link to={"/login"}>
+                        <button className='p-2'>👤Employee Log in</button>
+                    </Link>
+                    {/* )} */}
                     <button className=' p-2'> 🛒 Cart </button>
                 </div>
             </div >

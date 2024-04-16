@@ -23,7 +23,7 @@ const ViewOne = () => {
     ]);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/products/${id}`)
+        axios.get(`http://localhost:8080/product/${id}`)
             .then(response => {
                 setProduct(response.data);
             })
@@ -127,8 +127,8 @@ const ViewOne = () => {
                         </div>
 
                         <div className='right-description font-bold border p-2 leading-loose text-center w-80'>
-                            <h1 className='text-2xl'>{product.prd_NAME}</h1>
-                            <p className='text-lg text-green-500'>${product.prd_PRICE}</p>
+                            <h1 className='text-2xl'>{product.prd_name}</h1>
+                            <p className='text-lg text-green-500'>${product.prd_price}</p>
                             {/* <p className='text-sm'>{product.prd_DESCRIPTION}</p> */}
                             <p className=''>Size</p>
                             <select className='font-normal border border-black w-20'>
@@ -155,7 +155,7 @@ const ViewOne = () => {
                     <div className='flex justify-evenly ml-5 p-5 gap-10'>
                         <div className='product-info '>
                             <p className='font-bold text-center'> Product info </p>
-                            {/* <p> {product.prd_DESCRIPTION} </p> */}
+                            {/* <p> {product.prd_description} </p> */}
                             <p className=''>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel velit a quam viverra vehicula vitae a nisl. Proin odio mauris, pellentesque eget mi vel, suscipit scelerisque leo. Nam auctor augue diam, eget consequat dui consequat sed. Praesent ullamcorper in orci in eleifend. Curabitur turpis lacus, dictum ut convallis et, bibendum rhoncus libero. Etiam lacinia augue sollicitudin nisl ornare, quis auctor neque imperdiet. In commodo diam nec nunc pulvinar aliquam. Integer eleifend dapibus arcu dapibus imperdiet. Mauris ac magna condimentum, hendrerit urna sit amet, ullamcorper neque. Praesent nisl neque, dignissim sit amet scelerisque sit amet, mollis quis massa. <br /> <br />
 

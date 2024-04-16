@@ -6,13 +6,17 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.rc.ecommbackend.models.Product;
-import com.rc.ecommbackend.repositories.ProductRepo;
+import com.rc.ecommbackend.repositories.ProductRepository;
 
 @Service
 public class ProductService {
 	
-	private final ProductRepo productRepo;
-	public ProductService(ProductRepo productRepo) {
+//	@Autowired
+//	private ProductRepository productRepo;
+
+	private final ProductRepository productRepo;
+	
+	public ProductService(ProductRepository productRepo) {
 		this.productRepo = productRepo;
 	}
 	
@@ -20,8 +24,8 @@ public class ProductService {
 		return productRepo.findAll();
 	}
 	
-	public Product getOneProduct(Long PRD_ID) {
-		Optional<Product> optionalProduct = productRepo.findById(PRD_ID);
+	public Product getOneProduct(Long prd_id) {
+		Optional<Product> optionalProduct = productRepo.findById(prd_id);
 		return optionalProduct.isPresent() ? optionalProduct.get() : null;
 	}
 	
@@ -29,8 +33,8 @@ public class ProductService {
 		return productRepo.save(a);
 	}
 	
-	public void deleteProduct(Long PRD_ID) {
-		productRepo.deleteById(PRD_ID);
+	public void deleteProduct(Long prd_id) {
+		productRepo.deleteById(prd_id);
 	}
 	
 }
