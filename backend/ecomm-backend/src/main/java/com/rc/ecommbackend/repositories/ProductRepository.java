@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.rc.ecommbackend.models.Product;
 
-public interface ProductRepo extends CrudRepository<Product, Long> {
+@Repository
+public interface ProductRepository extends CrudRepository<Product, Long> {
 
 	// get all products
 		List<Product> findAll();

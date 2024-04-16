@@ -16,7 +16,7 @@ const NavSide = ({ activeDept }) => {
     // render department links
     const renderDepartmentLinks = () => {
         const departments = [
-            { name: 'Shoes', links: ['Link A', 'Link B', 'Link C'] },
+            { name: 'Toys', links: ['Link A', 'Link B', 'Link C'] },
             { name: 'Books', links: ['Link X', 'Link Y', 'Link Z'] },
             { name: 'Movies', links: ['Link C', 'Link A', 'Link T'] },
             { name: 'Computers', links: ['Link D', 'Link O', 'Link G'] },

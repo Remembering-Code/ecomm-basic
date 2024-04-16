@@ -6,18 +6,15 @@ import NavTop from '../components/nav-top/NavTop'
 import NavBottom from '../components/NavBottom'
 import NavSide from '../components/NavSide'
 
-
-const Content = ({ dummyData }) => {
+const Content = () => {
 
     const [products, setProducts] = useState([]);
-    // const [filteredData, setfilteredData] = useState([]);
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
-        // Making a call to the backend to fetch all products using axios
         axios.get('http://localhost:8080/products')
             .then(response => {
                 setProducts(response.data);
-                // setProducts(response.data);
             })
             .catch(error => {
                 console.error('Error fetching products:', error);
@@ -35,18 +32,16 @@ const Content = ({ dummyData }) => {
 
     }, []);
 
-    console.log('Products', products);
-
     // Search bar item filter
     const handleSearch = (searchInput) => {
         const filtered = products.filter(item =>
-            item.name.toLowerCase().includes(searchInput.toLowerCase()));
+            item.prd_name.toLowerCase().includes(searchInput.toLowerCase()));
         setProducts(filtered);
     };
 
     // Filtering by Department
     const handleDeptFilter = (activeDept) => {
-        const filteredProducts = activeDept ? products.filter(product => product.prd_CATEGORY === activeDept) : products;
+        const filteredProducts = activeDept ? products.filter(product => product.prd_category === activeDept) : products;
         setProducts(filteredProducts);
     };
 
@@ -64,7 +59,6 @@ const Content = ({ dummyData }) => {
             setCurrentPage(currentPage + 1);
         }
     };
-
     const prevPage = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
@@ -88,24 +82,20 @@ const Content = ({ dummyData }) => {
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
-
     const closeDropdown = () => {
         setIsOpen(false);
     };
 
-    // Handling the dropdown menu to close when clicked off of it 
-    const dropdownRef = useRef(null);
-
     //////// FILTER BY ////////
     // calculating price low to high
     const priceLowtoHigh = () => {
-        const sortedData = [...products].sort((a, b) => a.prd_PRICE - b.prd_PRICE);
+        const sortedData = [...products].sort((a, b) => a.prd_price - b.prd_price);
         setProducts(sortedData);
     };
 
     // calculating price low to high
     const priceHightoLow = () => {
-        const sortedData = [...products].sort((a, b) => b.prd_PRICE - a.prd_PRICE);
+        const sortedData = [...products].sort((a, b) => b.prd_price - a.prd_price);
         setProducts(sortedData);
     };
 
@@ -120,14 +110,6 @@ const Content = ({ dummyData }) => {
         });
         setProducts(sortedData);
     };
-
-    // const truncateText = (text, maxLength = 50) => {
-    //     if (text.length <= maxLength) {
-    //         return text
-    //     }
-    //     const truncatedText = text.substr(0, text.lastIndexOf(' ', maxLength))
-    //     return truncatedText + "..."
-    // }
 
     return (
         <>
@@ -168,20 +150,29 @@ const Content = ({ dummyData }) => {
                     <div className='grid grid-cols-4 gap-4 container mx-auto p-4'>
 
                         {currentItems.map((item, index) => (index < 8 &&
-                            <div key={index} className="p-2 border-2 place-content-center text-center mx-auto max-w-56 max-h-96">
+                            <div key={index} className="relative p-2 border-2 place-content-center text-center mx-auto max-w-56 max-h-96">
+                                {/* authorization stuff, button only available for employees */}
+                                {/* {user.role === "admin" && ( */}
+                                <Link to={`/editProduct/${item.prd_id}`}>
+                                    <button className="absolute top-1 right-1 w-8 h-8 bg-red-600 items-center hover:bg-green-800 text-sm text-white">
+                                        Edit
+                                    </button>
+                                </Link>
+                                {/* )} */}
+
                                 <img
                                     src="https://media.istockphoto.com/id/1146670231/vector/rubber-duck-vector-illustration.jpg?s=612x612&w=0&k=20&c=75fuQJhx-j5Q9O1ndmeunLPBKbrQxsTcZ1I6DYbVsnY="
                                     alt="ducky" className='object-center' />
 
-                                <Link className=" font-bold hover:text-blue-600 hover:underline" to={`/item/${item.prd_ID}`}> {item.prd_NAME}</Link>
+                                <Link className=" font-bold hover:text-blue-600 hover:underline" to={`/item/${item.prd_id}`}> {item.prd_name}</Link>
                                 {/* <p> AvgRating: {avgRating(item.ratings)} </p> */}
-                                <p className='text-green-500'> ${item.prd_PRICE} </p>
+                                <p className='text-green-500'> ${item.prd_price} </p>
                                 {/* <p className='' title={item.prd_DESCRIPTION}> {truncateText(item.prd_DESCRIPTION)} </p> */}
-                                <p className='line-clamp-2' title={item.prd_DESCRIPTION}> {item.prd_DESCRIPTION} </p>
+                                <p className='line-clamp-2' title={item.prd_description}> {item.prd_description} </p>
                                 <div className="hidden bg-white border border-gray-300 shadow-lg">
-                                    {item.prd_DESCRIPTION}
+                                    {item.prd_description}
                                 </div>
-                                <p className='text-purple-500'> {item.prd_CATEGORY}</p>
+                                <p className='text-purple-500'> {item.prd_category}</p>
                             </div>
                         ))}
                     </div>
@@ -228,7 +219,7 @@ const Content = ({ dummyData }) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
 
             <NavBottom />
         </>
