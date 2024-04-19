@@ -12,6 +12,7 @@ import Login from './components/auth/Login'
 import Registration from './components/auth/Registration'
 import NewProduct from './components/NewProduct'
 import UpdateProduct from './components/UpdateProduct'
+import Cart from "./views/Cart.jsx"
 
 
 import Test from "./views/Test.jsx"
@@ -151,6 +152,10 @@ const router = createBrowserRouter([
   {
     path: "/editProduct/:id",
     element: <UpdateProduct />
+  },
+  {
+    path: "/cart",
+    element: <Cart />
   },
 
   { path: "/login", element: <Login /> },
