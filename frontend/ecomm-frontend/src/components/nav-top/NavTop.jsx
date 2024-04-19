@@ -140,13 +140,11 @@ const TopNav = ({ onSearch }) => {
                     {/* {user ? (
                         <button className='p-2' onClick={handleLogout}>👤Logout</button>
                     ) : ( */}
-                    <Link to={"/login"}>
-                        <button className='p-2'>👤Employee Log in</button>
-                    </Link>
+                    <Link to={"/login"} className='p-2'> 👤Employee Log in </Link>
                     {/* )} */}
-                    <button className=' p-2'> 🛒 Cart </button>
+                    <Link to={"/cart"} className='p-2'>  🛒 Cart  </Link>
                 </div>
-            </div >
+            </div>
 
             <div className='p-2 bg-blue-600 text-white flex justify-between p-3 text-sm relative'>
 
@@ -173,16 +171,16 @@ const TopNav = ({ onSearch }) => {
                         </ul>
                     </div>
                 )}
-                <Link to={""}> Department 1</Link>
-                <Link to={""}> Department 2</Link>
-                <Link to={""}> Department 3</Link>
-                <Link to={""}> Department 4</Link>
-                <Link to={""}> Department 5</Link>
-                <Link to={""}> Department 6</Link>
-                <Link to={""}> Department 7</Link>
-                <Link to={""}> Department 8</Link>
-                <Link to={""}> Department 9</Link>
-                <Link to={""}> Department 10</Link>
+                <Link to={""}> Dept 1</Link>
+                <Link to={""}> Dept 2</Link>
+                <Link to={""}> Dept 3</Link>
+                <Link to={""}> Dept 4</Link>
+                <Link to={""}> Dept 5</Link>
+                <Link to={""}> Dept 6</Link>
+                <Link to={""}> Dept 7</Link>
+                <Link to={""}> Dept 8</Link>
+                <Link to={""}> Dept 9</Link> 
+                <Link to={""}> Dept 10</Link>
             </div>
         </>
     )
